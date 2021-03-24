@@ -32,14 +32,29 @@ public class PostResourceIT {
 
     @Test
     public void save() {
+
+        String title_key = "title";
+        String title_value = "GS";
+
+        String content_key = "content" ;
+        String content_value  = "I love GS";
+
         JsonObject post = Json.createObjectBuilder()
-                .add("title", "remote_hello")
-                .add("content", "first_st").build();
+                .add(title_key,  title_value)
+                .add(content_key, content_value)
+                .build();
 
         Response response = this.client.save(post);
         int status = response.getStatus();
         assertEquals(204, status);
         System.out.println(" -----> " + status);
 
+        response = this.client.findPost(title_value);
+        status = response.getStatus();
+        assertEquals(200, status);
+
+
+
     }
+
 }

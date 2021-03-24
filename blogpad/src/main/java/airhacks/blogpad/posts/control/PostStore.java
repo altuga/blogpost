@@ -31,6 +31,9 @@ public class PostStore {
     public void save(Post post) throws IllegalStateException   {
         String stringified =  serialize(post); 
         try {
+            System.out.println("save stringified--> " +  stringified);
+            System.out.println("save post.title --> " + post.title);
+            System.out.println("save post.content --> " + post.content);
             write(post.title, stringified); 
         } catch (IOException e) {
             throw new IllegalStateException("Cannot save post " + post.title);
@@ -39,6 +42,7 @@ public class PostStore {
     }
 
     void write(String fileName, String content) throws IOException {
+        System.out.println("write fileName --> " + fileName );
         Path path = this.storagePath.resolve(fileName); 
         Files.writeString(path,content);
     } 
@@ -48,8 +52,14 @@ public class PostStore {
         return jsonb.toJson(post);
     }
 
-    public Post read(String fileName) throws IOException {
-        String path = readString(fileName);
+    public Post read(String fileName){
+        String path = null;
+        try {
+            System.out.println("read fileName --> " + fileName );
+            path = readString(fileName);
+        } catch (IOException e) {
+            throw new IllegalStateException("Cannot read post " + fileName);
+        }
         return deserialize(path);
 
     }

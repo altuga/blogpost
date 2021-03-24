@@ -1,12 +1,9 @@
 package airhacks.blogpad.posts.boundary;
 
-import java.io.IOException;
-
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import airhacks.blogpad.posts.control.PostStore;
 import airhacks.blogpad.posts.entity.Post;
@@ -23,4 +20,15 @@ public class PostResource {
         this.store.save(post);
      
     }
+
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("{title}")
+    public Post findPost(@PathParam("title") String title) {
+        return this.store.read(title);
+    }
+
+
+
 }
