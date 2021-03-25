@@ -1,0 +1,5 @@
+airhacks/blogpad/posts/entity/Post.class
+airhacks/blogpad/posts/control/PostStore.class
+airhacks/blogpad/posts/boundary/PostResource.class
+airhacks/service/JAXRSConfiguration.class
+airhacks/service/ping/boundary/PingResource.class

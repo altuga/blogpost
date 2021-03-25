@@ -1,0 +1,5 @@
+/Users/altuga/Code/microprofile/blogpad/blogpad/src/main/java/airhacks/service/JAXRSConfiguration.java
+/Users/altuga/Code/microprofile/blogpad/blogpad/src/main/java/airhacks/blogpad/posts/entity/Post.java
+/Users/altuga/Code/microprofile/blogpad/blogpad/src/main/java/airhacks/blogpad/posts/boundary/PostResource.java
+/Users/altuga/Code/microprofile/blogpad/blogpad/src/main/java/airhacks/blogpad/posts/control/PostStore.java
+/Users/altuga/Code/microprofile/blogpad/blogpad/src/main/java/airhacks/service/ping/boundary/PingResource.java

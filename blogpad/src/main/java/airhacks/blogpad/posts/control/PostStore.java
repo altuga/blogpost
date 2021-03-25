@@ -36,7 +36,7 @@ public class PostStore {
             System.out.println("save post.content --> " + post.content);
             write(post.title, stringified); 
         } catch (IOException e) {
-            throw new IllegalStateException("Cannot save post " + post.title);
+            throw new StorageException("Cannot save post --> " + post.title, e);
         }
        
     }
