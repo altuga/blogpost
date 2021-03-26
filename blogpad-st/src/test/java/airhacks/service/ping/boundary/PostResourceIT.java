@@ -62,7 +62,7 @@ public class PostResourceIT {
         // send IllegalChar
 
         String title_key = "/";
-        String title_value = "GS";
+        String title_value = "FB";
 
         String content_key = "content" ;
         String content_value  = "I love GS";
