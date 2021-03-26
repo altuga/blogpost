@@ -43,12 +43,12 @@ public class PostStore {
 
     void write(String fileName, String content) throws IOException {
         System.out.println("write fileName --> " + fileName );
-        Path path = this.storagePath.resolve(fileName); 
+        var path = this.storagePath.resolve(fileName);
         Files.writeString(path,content);
     } 
 
     String serialize(Post post) {
-        Jsonb jsonb = JsonbBuilder.create();
+        var jsonb = JsonbBuilder.create();
         return jsonb.toJson(post);
     }
 
@@ -65,12 +65,12 @@ public class PostStore {
     }
 
     Post deserialize(String fileLocation) {
-        Jsonb jsonb = JsonbBuilder.create();
+        var jsonb = JsonbBuilder.create();
         return jsonb.fromJson(fileLocation, Post.class); 
     }    
 
     String readString(String fileName) throws IOException {
-        Path path = this.storagePath.resolve(fileName);
+        var path = this.storagePath.resolve(fileName);
         return Files.readString(path) ; 
     }
 
