@@ -29,16 +29,33 @@ public class PostStore {
     }
 
     public void save(Post post) throws IllegalStateException   {
+        System.out.println("post.title " + post.title);
+        var fileName = this.normalize(post.title);
+        System.out.println("after normalize - fileName " + fileName);
         String stringified =  serialize(post); 
         try {
             System.out.println("save stringified--> " +  stringified);
             System.out.println("save post.title --> " + post.title);
             System.out.println("save post.content --> " + post.content);
-            write(post.title, stringified); 
+            write(fileName, stringified);
         } catch (IOException e) {
             throw new StorageException("Cannot save post --> " + post.title, e);
         }
        
+    }
+
+    String normalize(String title) {
+          return title.codePoints().
+                  map(this::replaceWithDigitOrLetter).collect
+                  (StringBuffer::new, StringBuffer::appendCodePoint, StringBuffer::append).toString();
+    }
+
+    int replaceWithDigitOrLetter(int codePoint) {
+        if(Character.isLetterOrDigit(codePoint)) {
+            return  codePoint;
+        } else{
+            return "-".codePoints().findFirst().orElseThrow();
+        }
     }
 
     void write(String fileName, String content) throws IOException {
