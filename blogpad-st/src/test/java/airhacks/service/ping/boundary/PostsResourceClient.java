@@ -17,5 +17,6 @@ public interface PostsResourceClient {
     @Produces(MediaType.APPLICATION_JSON)
     Response findPost(@PathParam("title") String title) ;
 
+
     
 }
