@@ -47,7 +47,7 @@ public class MetricsResourceIT {
         assertFalse(metrics.isEmpty());
         System.out.println(" -----> " + metrics.toString());
         int saveCounter =
-                metrics.getJsonNumber("airhacks.blogpad.posts.boundary.PostResource.save").intValue();
+                metrics.getJsonNumber("airhacks.blogpad.posts.boundary.PostResource.createNew").intValue();
         System.out.println(" saveCounter -----> " +saveCounter );
         assertTrue(saveCounter >= 0 );
 
