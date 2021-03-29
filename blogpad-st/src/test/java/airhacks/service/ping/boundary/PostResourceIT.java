@@ -3,15 +3,13 @@ package airhacks.service.ping.boundary;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 import javax.json.Json;
 import javax.json.JsonObject;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
 import java.net.URI;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author airhacks.com
@@ -58,33 +56,22 @@ public class PostResourceIT {
 
 
     @Test
-    public void saveIllegalChar() {
+    public void saveWithIllegalChar() {
         // send IllegalChar
-
-        String title_key = "/";
-        String title_value = "FB";
-
-        String content_key = "content" ;
-        String content_value  = "I love GS";
-
         JsonObject post = Json.createObjectBuilder()
-                .add(title_key,  title_value)
-                .add(content_key, content_value)
+                .add("title",  "/")
+                .add("content", "Illegal")
                 .build();
+        System.out.println(" Post " + post);
+        this.client.save(post);
 
+        Response response = this.client.findPost("-");
+        int status = response.getStatus();
+        JsonObject jsonObject = response.readEntity(JsonObject.class);
+        assertEquals(200, status);
+        assertEquals("-", jsonObject.getString("title"));
+        System.out.println(" jsonObject " + jsonObject);
 
-        Response postResonse = null;
-        try {
-            this.client.save(post);
-            //fail("IllegalArgumentException title");
-        } catch(WebApplicationException webx) {
-
-            // catch the error
-            // System.out.println(" catch --> "+ webx.getResponse().getStatus() );
-            assertEquals(webx.getResponse().getStatus(), 500);
-            // assert the errors
-
-        }
     }
-
 }
+
