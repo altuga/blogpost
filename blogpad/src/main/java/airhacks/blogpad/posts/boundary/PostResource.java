@@ -20,16 +20,22 @@ public class PostResource {
     PostStore store ; 
 
     @Counted
-    @PUT
+    @POST
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response save(@Context UriInfo info, Post post) {
+    public Response createNew(@Context UriInfo info, Post post) {
         Post postWithFileName =  this.store.save(post);
-
-        URI uri = info.getAbsolutePathBuilder().path(postWithFileName.fileName).build();
-        //URI uri = URI.create("/" + postWithFileName.fileName);
+        URI uri = info.getAbsolutePathBuilder().
+                path(postWithFileName.fileName).build();
         return Response.created(uri).build();
     }
 
+    @Counted
+    @PUT
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response update(@Context UriInfo info, Post post) {
+        this.store.update(post);
+        return Response.ok().build();
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)

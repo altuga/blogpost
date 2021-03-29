@@ -1,18 +1,14 @@
 package airhacks.blogpad.posts.control;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import airhacks.blogpad.posts.entity.Post;
+import org.eclipse.microprofile.config.inject.ConfigProperty;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-
-
-import org.eclipse.microprofile.config.inject.ConfigProperty;
-
-import airhacks.blogpad.posts.entity.Post;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 
 public class PostStore {
@@ -32,8 +28,10 @@ public class PostStore {
     }
 
     public Post save(Post post) throws IllegalStateException   {
-
         var fileName = titleNormalizer.normalize(post.title);
+        if (this.fileExists(fileName)) {
+            throw new StorageException("Post with name " + fileName + " already exits");
+        }
         post.title = titleNormalizer.normalize(post.title);
         String stringified =  serialize(post); 
         try {
@@ -44,6 +42,24 @@ public class PostStore {
         }
 
         return post;
+    }
+
+
+    boolean fileExists(String fileName) {
+        Path fqn = this.storagePath.resolve(fileName);
+        return Files.exists(fqn);
+    }
+
+    public void update(Post post) {
+        var fileName = titleNormalizer.normalize(post.title);
+        post.title = titleNormalizer.normalize(post.title);
+        String stringified =  serialize(post);
+        try {
+            write(fileName, stringified);
+        } catch (Exception e) {
+            throw new StorageException("Cannot save post --> " + post.title, e);
+        }
+
     }
 
 
@@ -83,6 +99,4 @@ public class PostStore {
 
 
 
-
-    
 }
