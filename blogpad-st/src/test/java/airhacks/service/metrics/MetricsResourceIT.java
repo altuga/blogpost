@@ -1,5 +1,6 @@
 package airhacks.service.metrics;
 
+import airhacks.service.ping.boundary.PostResourceIT;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,6 +20,13 @@ import static org.junit.jupiter.api.Assertions.*;
 public class MetricsResourceIT {
 
     private MetricsResourceClient client;
+
+    @BeforeEach
+    public void initMetricsWithBusinessCall() {
+        var test =  new PostResourceIT();
+        test.init();
+        test.save();
+    }
 
     @BeforeEach
     public void init() {
