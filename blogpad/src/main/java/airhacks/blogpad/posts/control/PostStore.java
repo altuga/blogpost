@@ -27,11 +27,13 @@ public class PostStore {
         this.storagePath = Path.of(this.storageDir);
     }
 
-    public Post save(Post post) throws IllegalStateException   {
+    public Post createNew(Post post) throws IllegalStateException   {
         var fileName = titleNormalizer.normalize(post.title);
         if (this.fileExists(fileName)) {
             throw new StorageException("Post with name " + fileName + " already exits");
         }
+
+        post.setCreatedAt();
         post.title = titleNormalizer.normalize(post.title);
         String stringified =  serialize(post); 
         try {
@@ -52,6 +54,7 @@ public class PostStore {
 
     public void update(Post post) {
         var fileName = titleNormalizer.normalize(post.title);
+        post.updatedModifiedAt();
         post.title = titleNormalizer.normalize(post.title);
         String stringified =  serialize(post);
         try {

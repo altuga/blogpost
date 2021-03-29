@@ -1,5 +1,6 @@
 package airhacks.service.ping.boundary;
 
+import javax.annotation.PostConstruct;
 import javax.json.JsonObject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -10,7 +11,11 @@ public interface PostsResourceClient {
 
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    Response save(JsonObject post);
+    Response update(JsonObject post);
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    Response createNew(JsonObject post);
 
     @GET
     @Path("{title}")

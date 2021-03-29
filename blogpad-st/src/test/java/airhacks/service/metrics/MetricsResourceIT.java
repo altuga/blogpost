@@ -25,7 +25,8 @@ public class MetricsResourceIT {
     public void initMetricsWithBusinessCall() {
         var test =  new PostResourceIT();
         test.init();
-        test.save();
+        test.update();
+        test.update();
     }
 
     @BeforeEach
