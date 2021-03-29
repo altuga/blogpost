@@ -31,23 +31,25 @@ public class PostStore {
         this.storagePath = Path.of(this.storageDir);
     }
 
-    public void save(Post post) throws IllegalStateException   {
-        System.out.println("post.title " + post);
+    public Post save(Post post) throws IllegalStateException   {
+
         var fileName = titleNormalizer.normalize(post.title);
-        System.out.println("after normalize - fileName " + post);
         post.title = titleNormalizer.normalize(post.title);
         String stringified =  serialize(post); 
         try {
+            post.fileName = fileName;
             write(fileName, stringified);
         } catch (Exception e) {
             throw new StorageException("Cannot save post --> " + post.title, e);
         }
+
+        return post;
     }
 
 
 
     void write(String fileName, String content) throws IOException {
-        System.out.println("write fileName --> " + fileName );
+        System.out.println("write fileName ---> " + fileName );
         var path = this.storagePath.resolve(fileName);
         Files.writeString(path,content);
     } 
