@@ -13,5 +13,12 @@ public class Post {
     public Post() {
         
     }
-    
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                '}';
+    }
 }
