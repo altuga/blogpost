@@ -21,6 +21,7 @@ public class TitleNormalizer {
                 codePoints().findFirst().orElseThrow();
     }
     public String normalize(String title) {
+
         return title.codePoints().
                 map(this::replaceWithDigitOrLetter).collect
                 (StringBuffer::new, StringBuffer::appendCodePoint,

@@ -19,7 +19,7 @@ public class PingResource {
 
     @GET
     public String ping() {
-        return this.message + " MicroProfile 3....***+!";
+        return this.message + " MicroProfile 3....***+*!";
     }
 
 }

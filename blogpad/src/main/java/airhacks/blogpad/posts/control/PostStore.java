@@ -29,6 +29,7 @@ public class PostStore {
 
     public Post createNew(Post post) throws IllegalStateException   {
         var fileName = titleNormalizer.normalize(post.title);
+
         if (this.fileExists(fileName)) {
             throw new StorageException("Post with name " + fileName + " already exits");
         }
