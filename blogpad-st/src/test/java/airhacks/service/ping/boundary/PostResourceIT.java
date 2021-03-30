@@ -111,11 +111,11 @@ public class PostResourceIT {
         System.out.println(" Post " + post);
         this.client.update(post);
 
-        Response response = this.client.findPost("-");
+        Response response = this.client.findPost("hello-world");
         int status = response.getStatus();
         JsonObject jsonObject = response.readEntity(JsonObject.class);
         assertEquals(200, status);
-        assertEquals("-", jsonObject.getString("title"));
+        assertEquals("hello-world", jsonObject.getString("title"));
         System.out.println(" jsonObject " + jsonObject);
 
     }
