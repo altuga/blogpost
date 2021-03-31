@@ -28,6 +28,7 @@ public class PostStore {
     }
 
     public Post createNew(Post post) throws IllegalStateException   {
+        System.out.println(" Post " + post );
         var fileName = titleNormalizer.normalize(post.title);
 
         if (this.fileExists(fileName)) {
