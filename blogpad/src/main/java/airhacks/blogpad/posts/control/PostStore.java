@@ -6,6 +6,7 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.json.bind.JsonbBuilder;
+import javax.ws.rs.BadRequestException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -30,7 +31,6 @@ public class PostStore {
     public Post createNew(Post post) throws IllegalStateException   {
         System.out.println(" Post " + post );
         var fileName = titleNormalizer.normalize(post.title);
-
         if (this.fileExists(fileName)) {
             throw new StorageException("Post with name " + fileName + " already exits");
         }
@@ -56,6 +56,10 @@ public class PostStore {
 
     public void update(Post post) {
         var fileName = titleNormalizer.normalize(post.title);
+        if (!this.fileExists(fileName)) {
+            throw new BadRequestException("Post doesn't exists " + fileName
+                    + " nothing to update, use POST to create Post ");
+        }
         post.updatedModifiedAt();
         post.title = titleNormalizer.normalize(post.title);
         String stringified =  serialize(post);
