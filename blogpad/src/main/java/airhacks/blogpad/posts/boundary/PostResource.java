@@ -11,6 +11,8 @@ import javax.ws.rs.core.UriInfo;
 import airhacks.blogpad.posts.control.PostStore;
 import airhacks.blogpad.posts.entity.Post;
 import org.eclipse.microprofile.metrics.annotation.Counted;
+import org.eclipse.microprofile.metrics.annotation.Metered;
+import org.eclipse.microprofile.metrics.annotation.Timed;
 import org.eclipse.microprofile.openapi.annotations.responses.APIResponse;
 
 import java.net.URI;
@@ -44,6 +46,7 @@ public class PostResource {
         return Response.ok().build();
     }
 
+    @Timed
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
