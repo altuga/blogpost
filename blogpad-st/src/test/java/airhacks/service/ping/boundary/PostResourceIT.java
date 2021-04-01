@@ -22,7 +22,7 @@ public class PostResourceIT {
     @BeforeEach
     public void init() {
         System.out.println(" started " );
-        URI uri = URI.create("http://localhost:9080/blogpad/resources/");
+        URI uri = URI.create("http://localhost:8080/blogpad/resources/");
         this.client = RestClientBuilder.
                 newBuilder().
                 baseUri(uri).
@@ -34,10 +34,10 @@ public class PostResourceIT {
     public void createNew() {
 
         String title_key = "title";
-        String title_value = "Galatasaray-"+System.currentTimeMillis();;
+        String title_value = "Galatasaray-"+System.currentTimeMillis();
 
         String content_key = "content" ;
-        String content_value  = "I love GS";
+        String content_value  = "I love GS" +System.currentTimeMillis();
 
         JsonObject post = Json.createObjectBuilder()
                 .add(title_key,  title_value)

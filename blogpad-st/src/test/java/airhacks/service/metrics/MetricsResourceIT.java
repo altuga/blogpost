@@ -32,7 +32,7 @@ public class MetricsResourceIT {
     @BeforeEach
     public void init() {
         System.out.println("started metric testing" );
-        URI uri = URI.create("http://localhost:9080/");
+        URI uri = URI.create("http://localhost:8080/");
         this.client = RestClientBuilder.
                 newBuilder().
                 baseUri(uri).
@@ -48,7 +48,8 @@ public class MetricsResourceIT {
         assertFalse(metrics.isEmpty());
         System.out.println(" -----> " + metrics.toString());
         int saveCounter =
-                metrics.getJsonNumber("airhacks.blogpad.posts.boundary.PostResource.createNew").intValue();
+                metrics.getJsonNumber("airhacks.blogpad.posts.boundary.PostResource.createNew;_app=blogpad").intValue();
+
         System.out.println(" saveCounter -----> " +saveCounter );
         assertTrue(saveCounter >= 0 );
 
