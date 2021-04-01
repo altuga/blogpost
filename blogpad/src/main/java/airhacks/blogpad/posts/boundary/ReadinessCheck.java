@@ -2,13 +2,13 @@ package airhacks.blogpad.posts.boundary;
 
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.Readiness;
 
-import javax.enterprise.context.ApplicationScoped;
 
-@org.eclipse.microprofile.health.Readiness
-public class Readiness implements HealthCheck {
+@Readiness
+public class ReadinessCheck implements HealthCheck {
     @Override
     public HealthCheckResponse call() {
-        return HealthCheckResponse.up("blogpad");
+        return HealthCheckResponse.up("blogpad hello");
     }
 }

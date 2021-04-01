@@ -2,11 +2,17 @@ package airhacks.blogpad.posts.control;
 
 import airhacks.blogpad.posts.entity.Post;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.health.Health;
+import org.eclipse.microprofile.health.HealthCheck;
+import org.eclipse.microprofile.health.HealthCheckResponse;
+import org.eclipse.microprofile.health.Liveness;
 
 import javax.annotation.PostConstruct;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.BadRequestException;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,10 +29,45 @@ public class PostStore {
     @Inject
     TitleNormalizer titleNormalizer;
 
+    @Inject
+    @ConfigProperty(name="minimum.storage.space", defaultValue = "50")
+    private long storageThreshold;
+
     @PostConstruct
     public void init() {
         this.storagePath = Path.of(this.storageDir);
     }
+
+    @Produces
+    @Liveness
+    public HealthCheck checkPostsDirectoryExists() {
+        return () ->
+                 HealthCheckResponse.named("post-directory-exists")
+                .state(Files.exists(this.storagePath)).build();
+
+    }
+
+    @Produces
+    @Liveness
+    public HealthCheck checkEnoughSpace() {
+
+        var size = this.getPostsStorageSpaceInMB();
+        var enoughSpace = size >= this.storageThreshold;
+        return () ->
+                HealthCheckResponse.named("post-directory-has-space")
+                        .state(enoughSpace).build();
+
+    }
+
+    long getPostsStorageSpaceInMB() {
+        try {
+            return Files.getFileStore(this.storagePath).getUsableSpace() / 1024 / 1024 ;
+        } catch (IOException e) {
+            throw new StorageException("cannot fetch size information from "
+                    + this.storagePath, e );
+        }
+    }
+
 
     public Post createNew(Post post) throws IllegalStateException   {
         System.out.println(" Post " + post );
