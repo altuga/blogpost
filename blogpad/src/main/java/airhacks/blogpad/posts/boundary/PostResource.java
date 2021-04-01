@@ -26,9 +26,6 @@ public class PostResource {
     @APIResponse(responseCode = "400",
             description = "Post with the title already exists. Use PUT for updates"
     )
-    @APIResponse(responseCode = "200",
-            description = "Success, welldone"
-    )
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response createNew(@Context UriInfo info, Post post) {
@@ -48,6 +45,7 @@ public class PostResource {
     }
 
     @GET
+    @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("{title}")
     public Post findPost(@PathParam("title") String title) {

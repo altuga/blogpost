@@ -6,6 +6,7 @@ import org.eclipse.microprofile.health.Health;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
+import org.eclipse.microprofile.metrics.annotation.Gauge;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
@@ -59,7 +60,8 @@ public class PostStore {
 
     }
 
-    long getPostsStorageSpaceInMB() {
+    @Gauge(unit = "mb")
+    public long getPostsStorageSpaceInMB() {
         try {
             return Files.getFileStore(this.storagePath).getUsableSpace() / 1024 / 1024 ;
         } catch (IOException e) {
