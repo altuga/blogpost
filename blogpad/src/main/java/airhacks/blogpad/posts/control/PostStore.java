@@ -65,7 +65,7 @@ public class PostStore {
         try {
             return Files.getFileStore(this.storagePath).getUsableSpace() / 1024 / 1024 ;
         } catch (IOException e) {
-            throw new StorageException("cannot fetch size information from "
+            throw new StorageException("cannot fetch size information from ->"
                     + this.storagePath, e );
         }
     }
