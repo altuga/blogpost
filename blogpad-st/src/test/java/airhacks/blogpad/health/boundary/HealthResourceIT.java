@@ -1,4 +1,4 @@
-package airhacks.blogpad.metrics.boundary;
+package airhacks.blogpad.health.boundary;
 
 import airhacks.blogpad.ping.boundary.PostResourceIT;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
@@ -12,9 +12,9 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author airhacks.com
  */
-public class MetricsResourceIT {
+public class HealthResourceIT {
 
-    private MetricsResourceClient client;
+    private HealthResourceClient client;
 
     @BeforeEach
     public void initMetricsWithBusinessCall() {
@@ -26,31 +26,30 @@ public class MetricsResourceIT {
 
     @BeforeEach
     public void init() {
-        System.out.println("started metric testing" );
+        System.out.println("started health testing" );
         URI uri = URI.create("http://localhost:8080/");
         this.client = RestClientBuilder.
                 newBuilder().
                 baseUri(uri).
-                build(MetricsResourceClient.class);
+                build(HealthResourceClient.class);
 
     }
 
     @Test
-    public void getMetrics() {
-
-        var metrics = this.client.getApplicationMetrics();
-        assertNotNull(metrics);
-        assertFalse(metrics.isEmpty());
-        System.out.println(" -----> " + metrics.toString());
-        int saveCounter =
-                metrics.getJsonNumber("airhacks.blogpad.posts.boundary.PostResource.createNew").intValue();
-
-        System.out.println(" saveCounter -----> " +saveCounter );
-        assertTrue(saveCounter >= 0 );
+    public void readiness() {
+        var response = this.client.readiness();
+        assertEquals( 200, response.getStatus() );
 
 
     }
 
+    @Test
+    public void liveness() {
+        var response = this.client.liveness();
+        assertEquals( 200, response.getStatus() );
+
+
+    }
 
 
 

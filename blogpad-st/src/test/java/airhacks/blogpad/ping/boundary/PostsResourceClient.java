@@ -1,4 +1,4 @@
-package airhacks.ping.boundary;
+package airhacks.blogpad.ping.boundary;
 
 import javax.annotation.PostConstruct;
 import javax.json.JsonObject;

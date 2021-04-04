@@ -1,4 +1,4 @@
-package airhacks.metrics.boundary;
+package airhacks.blogpad.metrics.boundary;
 
 import javax.json.JsonObject;
 import javax.ws.rs.*;

@@ -1,6 +1,6 @@
-package airhacks.ping.boundary;
+package airhacks.blogpad.ping.boundary;
 
-import airhacks.metrics.boundary.MetricsResourceClient;
+import airhacks.blogpad.metrics.boundary.MetricsResourceClient;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -79,7 +79,7 @@ public class PostsResourceTortureIT {
         JsonObject jsonObject = this.metricClient.getApplicationMetrics()
                 .getJsonObject("airhacks.blogpad.posts.boundary.PostResource.findPost");
 
-        double oneMinRate = jsonObject.getJsonNumber("oneMinRate;_app=blogpad").doubleValue();
+        double oneMinRate = jsonObject.getJsonNumber("oneMinRate").doubleValue();
         System.out.println("#### ---- " + oneMinRate);
         assertTrue(oneMinRate > 5 );
     }
