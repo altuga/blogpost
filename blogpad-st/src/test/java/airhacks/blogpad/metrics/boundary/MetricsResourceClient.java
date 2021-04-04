@@ -1,4 +1,4 @@
-package airhacks.service.metrics;
+package airhacks.metrics.boundary;
 
 import javax.json.JsonObject;
 import javax.ws.rs.*;

@@ -1,6 +1,6 @@
-package airhacks.service.ping.boundary;
+package airhacks.ping.boundary;
 
-import airhacks.service.metrics.MetricsResourceClient;
+import airhacks.metrics.boundary.MetricsResourceClient;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

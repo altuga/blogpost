@@ -5,10 +5,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 
+import airhacks.blogpad.posts.entity.Post;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import airhacks.blogpad.posts.entity.Post;
 
 public class PostStoreTest {
     
@@ -25,7 +24,7 @@ public class PostStoreTest {
 
     @Test
     public void serializePost() {
-        String stringField = this.cut.serialize(new Post("Hello", "World"));   
+        String stringField = this.cut.serialize(new Post("Hello", "World"));
         assertNotNull(stringField); 
         System.out.println("->" + stringField); 
     }

@@ -1,4 +1,4 @@
-package airhacks.service.ping.boundary;
+package airhacks.ping.boundary;
 
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.junit.jupiter.api.BeforeEach;

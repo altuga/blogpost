@@ -1,5 +1,5 @@
 
-package airhacks.service.ping.boundary;
+package airhacks.blogpad.ping.boundary;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

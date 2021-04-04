@@ -1,15 +1,10 @@
-package airhacks.service.metrics;
+package airhacks.metrics.boundary;
 
-import airhacks.service.ping.boundary.PostResourceIT;
+import airhacks.ping.boundary.PostResourceIT;
 import org.eclipse.microprofile.rest.client.RestClientBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.json.Json;
-import javax.json.JsonNumber;
-import javax.json.JsonObject;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response;
 import java.net.URI;
 
 import static org.junit.jupiter.api.Assertions.*;
