@@ -12,7 +12,6 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.json.bind.JsonbBuilder;
 import javax.ws.rs.BadRequestException;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -128,8 +127,11 @@ public class PostStore {
 
     public Post read(String fileName){
         String path = null;
+        if (!this.fileExists(fileName)) {
+            return null;   // in order to throw 204
+        }
         try {
-            System.out.println("read fileName --> " + fileName );
+            System.out.println("read fileName --> " + fileName);
             path = readString(fileName);
         } catch (IOException e) {
             throw new IllegalStateException("Cannot read post " + fileName);
