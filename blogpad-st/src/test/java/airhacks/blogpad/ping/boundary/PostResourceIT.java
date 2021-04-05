@@ -139,5 +139,20 @@ public class PostResourceIT {
 
 
     }
+
+    @Test
+    public void fetchNonExistingTitle() {
+        String title = "ng" + System.nanoTime();
+        var response = this.client.findPost(title);
+        var status = response.getStatus();
+        assertEquals(204, status);
+    }
+
+    @Test
+    public void fetchExistingTitle() {
+        var response = this.client.findPost("initial");
+        var status = response.getStatus();
+        assertEquals(200, status);
+    }
 }
 

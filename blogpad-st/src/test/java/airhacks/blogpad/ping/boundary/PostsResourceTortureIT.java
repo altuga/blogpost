@@ -81,7 +81,7 @@ public class PostsResourceTortureIT {
 
         double oneMinRate = jsonObject.getJsonNumber("oneMinRate").doubleValue();
         System.out.println("#### ---- " + oneMinRate);
-        assertTrue(oneMinRate > 5 );
+        assertTrue(oneMinRate > 7 );
     }
 
 
