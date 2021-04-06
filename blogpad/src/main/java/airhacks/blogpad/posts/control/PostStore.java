@@ -5,7 +5,9 @@ import org.eclipse.microprofile.config.inject.ConfigProperty;
 import org.eclipse.microprofile.health.HealthCheck;
 import org.eclipse.microprofile.health.HealthCheckResponse;
 import org.eclipse.microprofile.health.Liveness;
+import org.eclipse.microprofile.metrics.MetricRegistry;
 import org.eclipse.microprofile.metrics.annotation.Gauge;
+import org.eclipse.microprofile.metrics.annotation.RegistryType;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.inject.Produces;
@@ -36,6 +38,10 @@ public class PostStore {
     public void init() {
         this.storagePath = Path.of(this.storageDir);
     }
+
+    @Inject
+    @RegistryType(type = MetricRegistry.Type.APPLICATION)
+    MetricRegistry metricRegistry;
 
     @Produces
     @Liveness
@@ -128,6 +134,7 @@ public class PostStore {
     public Post read(String fileName){
         String path = null;
         if (!this.fileExists(fileName)) {
+            this.incrementPostNotExists();
             return null;   // in order to throw 204
         }
         try {
@@ -138,6 +145,10 @@ public class PostStore {
         }
         return deserialize(path);
 
+    }
+
+    private void incrementPostNotExists() {
+        metricRegistry.counter("post_not_exists").inc();
     }
 
     Post deserialize(String fileLocation) {
