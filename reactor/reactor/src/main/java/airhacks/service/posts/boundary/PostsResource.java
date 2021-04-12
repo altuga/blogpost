@@ -22,15 +22,14 @@ public class PostsResource {
 
 
     @Inject
-    @RestClient
-    PostResourceClient postResourceClient;
+    Reactor reactor;
 
     @GET
     @Path("{title}")
     @Produces(MediaType.TEXT_HTML)
     public String findPost(@PathParam("title") String title) {
-        Response response = postResourceClient.findPost("initial");
-        return "<h1>hello</hello> " + title + " " + response.readEntity(JsonObject.class) ;
+        return  reactor.render(title);
+        //return "<h1>hello</hello> " + title + " " + response.readEntity(JsonObject.class) ;
     }
 
 }
